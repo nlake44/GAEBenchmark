@@ -1,0 +1,77 @@
+root_url: /fantasm/
+
+state_machines:
+
+- name: WordCount
+  states:
+
+  - name: WordCountStartingState
+    initial: True
+    action: wordcount.fsm_states.StartingStateClass
+    continuation: True
+    final: True
+#    transitions:
+#    - event: perentry
+#      to:    WCPerEntryState
+#  - name: WCPerEntryState
+#    action: wordcount.fsm_states.MapperStateClass
+#    final: True
+#    fan_in: 2
+
+- name: Aggregate
+  states:
+  
+  - name: AggregateStartingState
+    initial: True
+    action: aggregate.fsm_states.StartingStateClass
+    continuation: True  
+    final: True
+#    transitions: 
+#    - event: perentry
+#      to: AggPerEntryState
+#  - name: AggPerEntryState
+#    action: aggregate.fsm_states.MapperStateClass
+#    final: True
+#    fan_in: 2
+
+- name: Aggregate2
+  states:
+  - name: AggregateStartingState
+    initial: True
+    action: aggregate.fsm_states.StartingStateClass2
+    continuation: True  
+    final: True
+    transitions: 
+    - event: perentry
+      to: AggPerEntryState
+  - name: AggPerEntryState
+    action: aggregate.fsm_states.MapperStateClass2
+    final: True
+    fan_in: 5
+
+
+- name: Join
+  states:
+  - name: JoinStartingState
+    initial: True
+    action: join.fsm_states.StartingStateClass
+    final: True
+    continuation: True
+
+- name: Grep
+  states:
+  - name: GrepStartingState
+    initial: True
+    action: grep.fsm_states.StartingStateClass
+    continuation: True
+    final: True
+
+- name: SubSet 
+  states:
+  
+  - name: SubSetStartingState
+    initial: True
+    action: subset.fsm_states.StartingStateClass
+    continuation: True  
+    final: True
+

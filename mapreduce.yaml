@@ -1,0 +1,12 @@
+mapreduce:
+- name: Word Removal
+  params:
+  - name: done_callback
+    value: /data/wc/delete_callback
+  mapper:
+    handler: data.wordcount.delete_dataset
+    input_reader: mapreduce.input_readers.DatastoreInputReader
+    params:
+    - name: entity_kind
+      value: data.wordcount.Words1K
+ 

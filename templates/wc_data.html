@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <title>Wordcount with MapReduce</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    
+  </head>
+  <body bgcolor="#eeeeee">
+    <div style="width:100%; background-color:#FFFFFF">
+      <h1>AppScale Data for Word Count</h1>
+      <hr>
+      <a href="/">Home</a>|Data|<a href="/wc">Compute</a>
+      <hr>
+
+      <h2>Generate Data</h2>
+      <form action="/data/wc" method="post">
+        <label for="name">Name of dataset</label>
+        <input type="text" name="name" id="name" value="dataset00">
+        </br> 
+        <label for="num_entries">Amount of entries</label>
+        <input type="text" name="num_entries" id="num_entries" value="100">
+        </br> 
+        
+        </br> 
+        <label for="char_per_word">Amount of characters per words</label>
+        <input type="text" name="char_per_word" id="char_per_word" value="1">
+   
+        </br> 
+        <label for="entries_per_pipe">Amount of entries per pipeline</label>
+        <input type="text" name="entries_per_pipe" id="entries_per_pipe" value="10">
+        </br> 
+        <input type="hidden" name="user" id="user" value="{{ user }}">
+        <input type="submit" id="generate" name="generate" value="Generate Data">
+      </form>
+
+        
+    <div>
+      <h2>Datasets</h2>
+      {% if datasets_len %}
+      <table > 
+        <tr class="even">
+          <td>Name</td>
+          <td>State</td>
+          <td>User</td>
+          <td>Number of entries</td>
+          <td>Chars per word</td>
+          <td>Creation date</td>
+          <td>End date</td>
+          <td>Entries per pipeline</td>
+          <td>Completion time</td>
+          <td>Delete</td>
+        </tr>
+        {% for data in datasets %}
+        <tr class="{% if forloop.counter|divisibleby:2 %} even {% else %} odd {% endif %}">
+          <td>{{ data.name }}</td>
+          <td>{{ data.state }}</td>
+          <td>{{ data.user }}</td>
+          <td>{{ data.num_entries }}</td>
+          <td>{{ data.char_per_word }}</td>
+          <td>{{ data.start}}</td>
+          <td>{{ data.end}}</td>
+          <td>{{ data.entries_per_pipe }}</td>
+          <td>{{ data.total}}</td> 
+          <td>
+                <form action="/data/wc" method="post">
+                  <input type="hidden" id="name" name="name" value="{{ data.name }}">
+                  <input type="submit" id="delete" name="delete" value="Remove Data">           </form>
+          </td>      
+        </tr>
+        {% endfor %} 
+      {% else %}
+      <div>No datasets available</div>
+      {% endif %}
+    </div>
+  </body>
+</html>

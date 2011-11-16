@@ -1,0 +1,26 @@
+This application has benchmarks for the three main libraries for 
+GAE:
+Pipeline--http://code.google.com/p/appengine-mapreduce
+MapReduce--http://code.google.com/p/fantasm
+Fantasm--http://code.google.com/p/appengine-pipeline
+
+The benchmarks include:
+Wordcount
+Aggregation
+Join
+Subset
+Grep
+
+The code layout:
+ - data
+   # Contains code to generate data and delete it
+ - wordcount
+   # Counts the number of times each word comes up
+ - join
+   # Joins two tables based on a property field
+ - grep
+   # Search for a needle in a haystack
+ - aggregate
+   # Count up an integer on an entire entity kind
+ - subset
+   # Aggregate but only on a subset of entities

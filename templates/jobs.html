@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>AppScale Benchmark Jobs</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+  </head>
+  <body bgcolor="#DDDDDD">
+    <div style="width:100%; background-color:#EEE">
+      <h1>AppScale Jobs Stats</h1>
+      <hr>
+      <a href="/">Home</a>|<a href="/jobs">Recompute</a>
+      <hr>
+        
+    <div>
+      <h2>Jobs</h2>
+      {% if jobs_len%}
+      <table >
+        <tr class="even">
+          <td>Benchmark</td>
+          <td>Engine</td>
+          <td>Size</td>
+          <td>Sum (s)</td>
+          <td>Num of Jobs</td>
+          <td>Average (s)</td>
+          <td>Min (s)</td>
+          <td>Max (s)</td>
+          <td>Stdev</td>
+        </tr>
+        {% for job in jobs%}
+        <tr class="{% if forloop.counter|divisibleby:2 %} even {% else %} odd {% endif %}">
+          <td>{{ job.jtype}}</td>
+          <td>{{ job.engine}}</td>
+          <td>{{ job.jsize}}</td>
+          <td>{{ job.total}}</td>
+          <td>{{ job.n}}</td>
+          <td>{{ job.avg}}</td>
+          <td>{{ job.minimum}}</td>
+          <td>{{ job.maximum}}</td> 
+          <td>{{ job.stdev}}</td> 
+        </tr>
+        {% endfor %} 
+      {% else %}
+      <div>No jobs ran</div>
+      {% endif %}
+    </div>
+  </body>
+</html>

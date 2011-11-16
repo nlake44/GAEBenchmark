@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <title>Aggregate</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+  </head>
+  <body bgcolor="#DDDDDD">
+    <div style="width:100%; background-color:#FFFFFF">
+      <h1>AppScale Data for Aggregate</h1>
+      <hr>
+      <a href="/">Home</a>|<a href="data/agg">Data</a>|Compute
+      <hr>
+
+      <h2>Choose the dataset and processing engine</h2>
+      <form action="/agg" method="post">
+        <label for="name">Name of dataset</label>
+        <div>
+        <select data-placeholder="Choose a dataset..."  style="width:270px;" tabindex="1" name="dataset">
+          {% for data in datasets %}
+              <option value="{{data.name}}">{{data.name}}</option>
+          {% endfor %}
+          {% if not datasets %}
+              <option value="">Create a dataset first</option>
+          {% endif %}
+        </select>
+        </div>
+        <div>
+        <select data-placeholder="Choose a engine..."  style="width:270px;" tabindex="1" name="engine">
+              <option value="fsm">FSM</option>
+              <option value="pipeline">Pipeline</option>
+              <option value="mr">MapReduce</option>
+              <option value="fsm_fan_in">FSM (with fan in)</option>
+        </select>
+ 
+        </div>
+        <input type="hidden" name="user" id="user" value="{{ user }}">
+        <input type="submit" id="compute" name="compute" value="Start">
+      </form>
+      <div>
+      <h2>Cleanup Last FSM job</h2>
+       <form action="/agg" method="post">
+            <input type="submit" id="fsm_cleanup" name="fsm_cleanup" value="Cleanup">         
+            </form>(make sure the last job was of fsm and you did not clean out the FSM Count!)
+      </div>
+
+        
+    <div>
+      <h2>Records</h2>
+      {% if records_len %}
+      <table>
+        <tr class="even">
+          <td>Data Name</td>
+          <td>State</td>
+          <td>User</td>
+          <td>Engine</td>
+          <td>Number of entries</td>
+          <td>Creation date</td>
+          <td>End date</td>
+          <td>Entries per pipeline</td>
+          <td>Completion time</td>
+        </tr>
+        {% for record in records%}
+        <tr class="{% if forloop.counter|divisibleby:2 %} even {% else %} odd {% endif %}">
+          <td>{{ record.dataset}}</td>
+          <td>{{ record.state }}</td>
+          <td>{{ record.user }}</td>
+          <td>{{ record.engine_type}}</td>
+          <td>{{ record.num_entities}}</td>
+          <td>{{ record.start}}</td>
+          <td>{{ record.end}}</td>
+          <td>{{ record.entries_per_pipe }}</td>
+          <td>{{ record.total}}</td> 
+        </tr>
+        {% endfor %} 
+      </table>
+      {% else %}
+      <div>No datasets available</div>
+      {% endif %}
+    </div>
+    <div>
+      <h2>Current FSM Count</h2>
+      <h3>{{ fsm_count }}</h2>
+      <form action='/agg' method='post'>
+        <input type="submit" id='reset_fsm_count' name="reset_fsm_count" value="Reset">
+      </form> 
+      <h2>Current Pipeline Count</h2>
+      <h3>{{ pl_count }}</h2>
+      <form action='/agg' method='post'>
+        <input type="submit" id='reset_pl_count' name="reset_pl_count" value="Reset">
+      </form> 
+      <h2>Current MapReduce Count</h2>
+      <h3>{{ mr_count }}</h2>
+      <form action='/agg' method='post'>
+        <input type="submit" id='reset_mr_count' name="reset_mr_count" value="Reset">
+      </form> 
+    <div>               
+      <h2>Datasets</h2>
+      {% if datasets_len %}
+      <table>
+        <tr class="even">
+          <td>Name</td>
+          <td>State</td>
+          <td>User</td>
+          <td>Number of entries</td>
+          <td>Creation date</td>
+          <td>End date</td>
+          <td>Entries per pipeline</td>
+          <td>Completion time</td>
+          <td>Delete</td>
+        </tr>
+        {% for data in datasets %}
+        <tr class="{% if forloop.counter|divisibleby:2 %} even {% else %} odd {% endif %}">
+          <td>{{ data.name }}</td>
+          <td>{{ data.state }}</td>
+          <td>{{ data.user }}</td>
+          <td>{{ data.num_entries }}</td>
+          <td>{{ data.start}}</td>
+          <td>{{ data.end}}</td>
+          <td>{{ data.entries_per_pipe }}</td>
+          <td>{{ data.total}}</td> 
+          <td>
+                <form action="/data/agg" method="post">
+                  <input type="hidden" id="name" name="name" value="{{ data.name }}">
+                  <input type="submit" id="delete" name="delete" value="Remove Data">           </form>
+          </td>      
+        </tr>
+        {% endfor %} 
+      {% else %}
+      <div>No datasets available</div>
+      {% endif %}
+    </div>
+  </body>
+</html>

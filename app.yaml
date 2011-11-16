@@ -1,0 +1,25 @@
+application: appscale-benchmark1
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /favicon.ico
+  static_dir: static/images
+
+- url: /fantasm/.*
+  script: fantasm/main.py
+  login: admin
+
+- url: /_ah/pipeline(/.*)?
+  script: pipeline/handlers.py
+
+- url: /static/css/style.css
+  static_files: static/css/style.css
+  upload: static/css/style.css
+
+- url: /mapreduce(/.*)?
+  script: mapreduce/main.py
+
+- url: .*
+  script: main.py

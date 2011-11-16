@@ -1,0 +1,24 @@
+body {
+    font-family: arial;
+    }
+h1 {   
+    background-color:#CCC;
+    border: 1px solid;
+    color:#39F;
+    text-align: left;
+    }
+.even { 
+      background-color: #D3D4D9;
+      }
+.odd { 
+      background-color: #F3F4F9;
+     }
+.bborder { border-bottom: 1px solid #D3D4D9; }
+.bborder1 { border-bottom: 1px solid #D3D4D9; }
+a:link {text-decoration:none;}
+a:visited {text-decoration:none;}
+a:hover {text-decoration:none;}
+a:active {text-decoration:none;}
+tr {
+   text-align: center;
+   }
