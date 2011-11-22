@@ -161,6 +161,7 @@ def fsm_calculate_run_time():
   q.order('-start')
   results = q.fetch(1)
 
+  # There is a second type of fsm job that has a fan in state
   q2 = Record.all()
   q2.filter('engine_type =','fsm_fan_in')
   q2.filter('benchmark =','aggregate')
@@ -183,6 +184,7 @@ def fsm_calculate_run_time():
 
   q = None
   record = None
+  # There should only be one result
   for ii in results:
     if ii.state == "Done":
       logging.error("Last FSM end time has already been calculated")

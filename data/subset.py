@@ -15,17 +15,17 @@ from mapreduce import model
 class SSFSMSimpleCounterShard(db.Model):
   """Shards for the counter"""
   count = db.IntegerProperty(required=True, default=0, indexed=False)
-  modified = db.DateTimeProperty(indexed=False, auto_now_add=True)
+  modified = db.DateTimeProperty(indexed=False, auto_now=True)
 
 class SSPLSimpleCounterShard(db.Model):
   """Shards for the counter"""
   count = db.IntegerProperty(required=True, default=0, indexed=False)
-  modified = db.DateTimeProperty(indexed=False, auto_now_add=True)
+  modified = db.DateTimeProperty(indexed=False, auto_now=True)
 
 class SSMRSimpleCounterShard(db.Model):
   """Shards for the counter"""
   count = db.IntegerProperty(required=True, default=0, indexed=False)
-  modified = db.DateTimeProperty(indexed=False, auto_now_add=True)
+  modified = db.DateTimeProperty(indexed=False, auto_now=True)
 
 def get_fsm_count():
   total = 0
