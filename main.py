@@ -76,6 +76,7 @@ APP = webapp.WSGIApplication(
         ('/join/mr/callback', join.mr.MRCallback),
         ('/join/fsm/callback', join.FSMMapperCallBack),
         ('/grep/mr/callback', grep.mr.MRCallback),
+        ('/grep/fsm/callback', grep.FSMMapperCallBack),
         ('/jobs', jobs.PastJobs),
     ],
     debug=True)
